@@ -1,6 +1,28 @@
+body {
+    background-color: #999;
+}
+
+#wrapper {
+    line-height: 12px;
+    background-color: #999;
+}
+
 #testGrid {
-    display: inline-block;
+    display: none;
+    /*display: inline-block;*/
     height: 100px;
     width: 100px;
     background-color: red;
+}
+
+#testGrid:hover {
+    background-color: blue;
+}
+
+.singleGrid {
+    background-color: grey;
+}
+
+.singleGrid:hover {
+    background-color: #999;
 }
