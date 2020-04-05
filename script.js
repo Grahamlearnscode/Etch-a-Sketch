@@ -1,9 +1,25 @@
-///Make the grid squares change colour on hover. Doing it with class and css pseudo-class doesn't work, it gets overwritten with element.style
+
 
 const wrapper=document.querySelector('#wrapper');
-const gridStyle="display: inline-block; margin-left: 1px; height: 30px; width: 30px;";
+const gridStyle="display: inline-block; height: 28px; width: 28px;"
+//Coloring removed from JS and moved to CSS while working on the resize function
+/*"display: inline-block; height: 28px; width: 28px; background-color: grey; border: 1px solid black";*/
+//The border ^
 
-createGrid(16, 16);
+createGrid(12, 12);
+
+let tiles = document.querySelectorAll('.tile');
+tiles.forEach(tile => tile.onmouseover=function (){inkTile()});
+
+/*hoveredTile.setAttribute('style', 'display: inline-block; height: 30px; width: 30px; background-color: blue');
+console.log(hoveredTile);*/
+
+
+function inkTile() {
+    console.log('inking tile');
+    ////Thisv. How to tell it what 'tile' is.
+    ///*tile.setAttribute('style', 'display: inline-block; height: 30px; width: 30px; background-color: darkblue');*/
+}
 
 function createGrid(xGrid, yGrid) {
     console.log('creating ' + xGrid + ' x ' + yGrid + ' grid');
@@ -15,12 +31,25 @@ function createGrid(xGrid, yGrid) {
         }
     }
 
-
-
 function createXGrid(xGrid) {
     for (x=0; x<xGrid; x++) {
-        let singleGrid=document.createElement('div');
-        ///Not sure if this classlist is needed
-        singleGrid.classList.add('singleGrid');
-        singleGrid.setAttribute('style', gridStyle); //blue squares
-        wrapper.appendChild(singleGrid);}}
+        let tile=document.createElement('div');
+        tile.classList.add('tile');
+        tile.setAttribute('style', gridStyle); //blue squares
+        wrapper.appendChild(tile);}}
+        
+function clearGrid() {
+    while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);}}
+
+function resizeGrid() {
+    let newSides=prompt('Create new grid: enter number of squares per side');
+    if (newSides) {
+        newSides=parseFloat(newSides);
+        if (Number.isInteger(newSides) && (newSides > 0)) {
+            clearGrid();
+            createGrid(newSides, newSides);
+        }
+        else {alert('Invalid number of sides')};
+        console.log(newSides + typeof newSides);
+    }
+}
