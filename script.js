@@ -43,10 +43,10 @@ function createGrid(xGrid, yGrid) {
 
 ////Called on click the 'reset and resize' button
 function resizeGrid() {
-    let newSides=prompt('Create new grid: enter number of squares per side');
+    let newSides=prompt('Create new grid: enter number of squares per side \n (minimum 2, maximum 80)');
     if (newSides) {
         newSides=parseFloat(newSides);
-        if (Number.isInteger(newSides) && (newSides > 0)) {
+        if (Number.isInteger(newSides) && (newSides > 1) && (newSides < 81)) {
             clearGrid();
             tileHeight="height: " + (480/newSides) +"px;";
             tileWidth="width: " + (480/newSides) +"px;";
