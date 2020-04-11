@@ -1,12 +1,15 @@
-////Reset works. Resize number of tiles works. Next is calculate width/height of tile at the point of grid creation based on number of tiles.
+////Grid is dynamic and will set height/width based on number of tiles
 
 const wrapper=document.querySelector('#wrapper');
-const gridStyle="display: inline-block; height: 30px; width: 30px;"
+let tileHeight="height: 30px;";
+let tileWidth="width: 30px;";
+let gridStyle="display: inline-block;" + tileHeight + tileWidth;
+
 //Coloring removed from JS and moved to CSS while working on the resize function
 /*"display: inline-block; height: 28px; width: 28px; background-color: grey; border: 1px solid black";*/
 //The border ^
 
-createGrid(12, 12);
+createGrid(16, 16);
 
 let tiles = document.querySelectorAll('.tile');
 tiles.forEach(tile => tile.onmouseover=function (){inkTile()});
@@ -22,7 +25,7 @@ function inkTile() {
 }
 
 function createGrid(xGrid, yGrid) {
-    console.log('creating ' + xGrid + ' x ' + yGrid + ' grid');
+    console.log('creating ' + xGrid + ' x ' + yGrid + ' grid at ' + tileHeight + tileWidth);
     ///repeat y times
     for (y=0; y<yGrid; y++) {
         createXGrid(xGrid);
@@ -31,24 +34,28 @@ function createGrid(xGrid, yGrid) {
         }
     }
 
-function createXGrid(xGrid) {
-    for (x=0; x<xGrid; x++) {
-        let tile=document.createElement('div');
-        tile.classList.add('tile');
-        tile.setAttribute('style', gridStyle); //blue squares
-        wrapper.appendChild(tile);}}
-        
-function clearGrid() {
-    while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);}}
+    function createXGrid(xGrid) {
+        for (x=0; x<xGrid; x++) {
+            let tile=document.createElement('div');
+            tile.classList.add('tile');
+            tile.setAttribute('style', gridStyle); //blue squares
+            wrapper.appendChild(tile);}}
 
+////Called on click the 'reset and resize' button
 function resizeGrid() {
     let newSides=prompt('Create new grid: enter number of squares per side');
     if (newSides) {
         newSides=parseFloat(newSides);
         if (Number.isInteger(newSides) && (newSides > 0)) {
             clearGrid();
+            tileHeight="height: " + (480/newSides) +"px;";
+            tileWidth="width: " + (480/newSides) +"px;";
+            gridStyle="display: inline-block;" + tileHeight + tileWidth;
             createGrid(newSides, newSides);
         }
         else {alert('Invalid number of sides')};
     }
 }
+
+    function clearGrid() {
+        while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);}}
