@@ -1,7 +1,7 @@
-
+////Reset works. Resize number of tiles works. Next is calculate width/height of tile at the point of grid creation based on number of tiles.
 
 const wrapper=document.querySelector('#wrapper');
-const gridStyle="display: inline-block; height: 28px; width: 28px;"
+const gridStyle="display: inline-block; height: 30px; width: 30px;"
 //Coloring removed from JS and moved to CSS while working on the resize function
 /*"display: inline-block; height: 28px; width: 28px; background-color: grey; border: 1px solid black";*/
 //The border ^
@@ -50,6 +50,5 @@ function resizeGrid() {
             createGrid(newSides, newSides);
         }
         else {alert('Invalid number of sides')};
-        console.log(newSides + typeof newSides);
     }
 }
