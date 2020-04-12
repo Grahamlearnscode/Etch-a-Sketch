@@ -1,32 +1,20 @@
-////Grid is dynamic and will set height/width based on number of tiles
 
 const wrapper=document.querySelector('#wrapper');
-let tileHeight="height: 30px;";
-let tileWidth="width: 30px;";
-let gridStyle="display: inline-block;" + tileHeight + tileWidth;
+let tileHeight="height: 30px;"; //default size for initial 16x16 grid
+let tileWidth="width: 30px;";   //default size for initial 16x16 grid
+let gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
 
-//Coloring removed from JS and moved to CSS while working on the resize function
-/*"display: inline-block; height: 28px; width: 28px; background-color: grey; border: 1px solid black";*/
-//The border ^
+createGrid(16, 16); //create initial grid on page load
 
-createGrid(16, 16);
+//ink tiles on mouseover
+function inkTile() { 
+        tileToInk=event.target;
+        tileToInk.setAttribute('style', 'display: inline-block; background-color: darkblue;' + tileHeight + tileWidth);
+    }
 
-let tiles = document.querySelectorAll('.tile');
-tiles.forEach(tile => tile.onmouseover=function (){inkTile()});
-
-/*hoveredTile.setAttribute('style', 'display: inline-block; height: 30px; width: 30px; background-color: blue');
-console.log(hoveredTile);*/
-
-
-function inkTile() {
-    console.log('inking tile');
-    ////Thisv. How to tell it what 'tile' is.
-    ///*tile.setAttribute('style', 'display: inline-block; height: 30px; width: 30px; background-color: darkblue');*/
-}
-
+//Create row, repeat y times
 function createGrid(xGrid, yGrid) {
     console.log('creating ' + xGrid + ' x ' + yGrid + ' grid at ' + tileHeight + tileWidth);
-    ///repeat y times
     for (y=0; y<yGrid; y++) {
         createXGrid(xGrid);
         const br=document.createElement('br');
@@ -34,15 +22,18 @@ function createGrid(xGrid, yGrid) {
         }
     }
 
+    //Create one row
     function createXGrid(xGrid) {
         for (x=0; x<xGrid; x++) {
             let tile=document.createElement('div');
             tile.classList.add('tile');
-            tile.setAttribute('style', gridStyle); //blue squares
-            wrapper.appendChild(tile);}}
+            tile.setAttribute('style', gridStyle);
+            tile.setAttribute('onmouseover', 'inkTile()');
+            wrapper.appendChild(tile);}
+        }
 
-////Called on click the 'reset and resize' button
-function resizeGrid() {
+//'reset and resize' button
+function resizeGrid() { 
     let newSides=prompt('Create new grid: enter number of squares per side \n (minimum 2, maximum 80)');
     if (newSides) {
         newSides=parseFloat(newSides);
@@ -50,7 +41,7 @@ function resizeGrid() {
             clearGrid();
             tileHeight="height: " + (480/newSides) +"px;";
             tileWidth="width: " + (480/newSides) +"px;";
-            gridStyle="display: inline-block;" + tileHeight + tileWidth;
+            gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
             createGrid(newSides, newSides);
         }
         else {alert('Invalid number of sides')};

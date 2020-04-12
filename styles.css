@@ -2,8 +2,8 @@ body {
     background-color: #999;
 }
 
-.tile {background-color: grey;}
-.tile:hover {background-color: red;}
+/*.tile {background-color: grey;}
+.tile:hover {background-color: red;}*/
 
 #wrapper {
     /*line-height: 12px; //1px between rows*/
@@ -17,15 +17,3 @@ body {
     border: 2px solid #666;
 }
 
-
-#testGrid {
-    display: none;
-    /*display: inline-block;*/
-    height: 100px;
-    width: 100px;
-    background-color: red;
-}
-
-#testGrid:hover {
-    background-color: blue;
-}
