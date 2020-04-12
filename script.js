@@ -3,6 +3,7 @@ const wrapper=document.querySelector('#wrapper');
 let tileHeight="height: 30px;"; //default size for initial 16x16 grid
 let tileWidth="width: 30px;";   //default size for initial 16x16 grid
 let gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
+let newSides=16;
 
 createGrid(16, 16); //create initial grid on page load
 
@@ -34,7 +35,7 @@ function createGrid(xGrid, yGrid) {
 
 //'reset and resize' button
 function resizeGrid() { 
-    let newSides=prompt('Create new grid: enter number of squares per side \n (minimum 2, maximum 80)');
+    newSides=prompt('Create new grid: enter number of squares per side \n (minimum 2, maximum 80)', 16);
     if (newSides) {
         newSides=parseFloat(newSides);
         if (Number.isInteger(newSides) && (newSides > 1) && (newSides < 81)) {
@@ -46,7 +47,14 @@ function resizeGrid() {
         }
         else {alert('Invalid number of sides')};
     }
+    return newSides;
 }
 
     function clearGrid() {
         while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);}}
+
+//'clear grid' button
+function resetGrid() {
+    clearGrid();
+    createGrid(newSides, newSides);
+}
