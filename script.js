@@ -3,7 +3,9 @@ const wrapper=document.querySelector('#wrapper');
 let tileHeight="height: 30px;"; //default size for initial 16x16 grid
 let tileWidth="width: 30px;";   //default size for initial 16x16 grid
 let gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
-let newSides=16;
+let gridSides=16;
+let instructionHidden=0;
+
 
 createGrid(16, 16); //create initial grid on page load
 
@@ -13,7 +15,9 @@ function inkTile() {
         tileToInk.setAttribute('style', 'display: inline-block; background-color: #666;' + tileHeight + tileWidth);
         hideInstruction(); //applies on first mouseover only
             function hideInstruction() {
-            document.querySelector('#instruction').setAttribute('style', 'display:none;');}
+                if (!instructionHidden){
+            document.querySelector('#instruction').setAttribute('style', 'display:none;');
+            instructionHidden=1;}}
     }
 
 //Create row, repeat y times
@@ -51,17 +55,19 @@ function resizeGrid() {
             tileWidth="width: " + (480/newSides) +"px;";
             gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
             createGrid(newSides, newSides);
+            gridSides=newSides;
+            return newSides;
         }
         else {alert('Invalid number of sides')};
     }
-    return newSides;
 }
 
     function clearGrid() {
-        while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);}}
+        while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);
+        instructionHidden=1;}}
 
 //'clear grid' button
 function resetGrid() {
     clearGrid();
-    createGrid(newSides, newSides);
+    createGrid(gridSides, gridSides);
 }
