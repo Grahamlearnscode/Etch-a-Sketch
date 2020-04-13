@@ -10,7 +10,10 @@ createGrid(16, 16); //create initial grid on page load
 //ink tiles on mouseover
 function inkTile() { 
         tileToInk=event.target;
-        tileToInk.setAttribute('style', 'display: inline-block; background-color: darkblue;' + tileHeight + tileWidth);
+        tileToInk.setAttribute('style', 'display: inline-block; background-color: #666;' + tileHeight + tileWidth);
+        hideInstruction(); //applies on first mouseover only
+            function hideInstruction() {
+            document.querySelector('#instruction').setAttribute('style', 'display:none;');}
     }
 
 //Create row, repeat y times
@@ -21,6 +24,10 @@ function createGrid(xGrid, yGrid) {
         const br=document.createElement('br');
         wrapper.appendChild(br);
         }
+    updateSizeIndicator();
+        function updateSizeIndicator() {
+            let sizeIndicator=document.getElementById('sizeIndicator');
+            sizeIndicator.innerHTML=xGrid + 'x' + yGrid;}
     }
 
     //Create one row

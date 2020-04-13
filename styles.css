@@ -7,6 +7,14 @@ h1 {
     text-align: center;
 }
 
+#instruction {
+    z-index: 2;
+    position: absolute;
+    display: inline-block;
+    margin-top: 100px;
+    margin-left: 152px;
+}
+
 #wrapper {
     width: 480px;
     height: 480px;
@@ -18,6 +26,13 @@ h1 {
     border: 2px solid #666;
 }
 
+#sizeIndicator {
+    margin-top: 8px;
+    text-align: center;
+    color: #333;
+    opacity: 0.8;
+}
+
 #buttonWrapper {
     margin-top: 32px;
     text-align: center;
@@ -26,7 +41,7 @@ h1 {
 button {
     padding: 8px 16px;
     margin: 0 8px;
-    border-radius: 2%;
+    border-radius: 5%;
     box-shadow: none;
     border: 2px solid #888;
     height: 40px;
