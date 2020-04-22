@@ -1,3 +1,4 @@
+//line 101 onwards, toggling between standard ink and gradient
 
 const wrapper=document.querySelector('#wrapper');
 let tileHeight="height: 30px;"; //default size for initial 16x16 grid
@@ -5,20 +6,41 @@ let tileWidth="width: 30px;";   //default size for initial 16x16 grid
 let gridStyle="display: inline-block; background-color: #ddd;" + tileHeight + tileWidth;
 let gridSides=16;
 let instructionHidden=0;
+let tileOpacity=0;
+
 
 
 createGrid(16, 16); //create initial grid on page load
 
-//ink tiles on mouseover
+//standard ink tiles on mouseover
 function inkTile() { 
-        tileToInk=event.target;
-        tileToInk.setAttribute('style', 'display: inline-block; background-color: #666;' + tileHeight + tileWidth);
-        hideInstruction(); //applies on first mouseover only
-            function hideInstruction() {
-                if (!instructionHidden){
-            document.querySelector('#instruction').setAttribute('style', 'display:none;');
-            instructionHidden=1;}}
-    }
+    tileToInk=event.target;
+    tileToInk.setAttribute('style', 'display: inline-block; background-color: #666;' + tileHeight + tileWidth);
+    hideInstruction(); //applies on first mouseover only
+        function hideInstruction() {
+            if (!instructionHidden){
+        document.querySelector('#instruction').setAttribute('style', 'display:none;');
+        instructionHidden=1;}}
+}
+
+// //gradient ink tiles on mouseover
+// function inkTile() { 
+//         tileToInk=event.target;
+//         console.log('current status: ' + tileToInk.outerHTML);
+//         console.log('current opacity: ' + tileToInk.getAttribute("tileOpacity"));
+//         console.log(tileOpacity + ' is the current value of the tileOpacity variable');
+//         tileOpacity = Number(tileToInk.getAttribute("tileOpacity"));
+//         /*tileOpacity = Number(tileOpacity);*/
+//         console.log(tileOpacity + ' is the current value of the tileOpacity variable');
+//         tileToInk.setAttribute('tileOpacity',(tileOpacity+=0.1)); //toNumber needed here or similar, it's treating the fucker as a string or as some binary.
+//         tileToInk.setAttribute('style', 'display: inline-block; background-color: #000066; opacity: ' + tileOpacity + ';' + tileHeight + tileWidth);
+//         console.log(tileToInk);
+//         hideInstruction(); //applies on first mouseover only
+//             function hideInstruction() {
+//                 if (!instructionHidden){
+//             document.querySelector('#instruction').setAttribute('style', 'display:none;');
+//             instructionHidden=1;}}
+//     }
 
 //Create row, repeat y times
 function createGrid(xGrid, yGrid) {
@@ -41,6 +63,7 @@ function createGrid(xGrid, yGrid) {
             tile.classList.add('tile');
             tile.setAttribute('style', gridStyle);
             tile.setAttribute('onmouseover', 'inkTile()');
+            tile.setAttribute('tileOpacity', 0);
             wrapper.appendChild(tile);}
         }
 
@@ -64,10 +87,21 @@ function resizeGrid() {
 
     function clearGrid() {
         while (wrapper.firstChild) {wrapper.removeChild(wrapper.firstChild);
-        instructionHidden=1;}}
+        instructionHidden=1;}
+        tileOpacity=0;
+        return tileOpacity;
+    }
 
 //'clear grid' button
 function resetGrid() {
     clearGrid();
     createGrid(gridSides, gridSides);
+}
+
+//'drawing mode' select box
+function toggledrawMode() {
+//code to check what draw type previously was, amend it, update UI;
+let drawMode=document.getElementById("drawMode").value;
+//does this need to be a toggle and reset? Not sure, could do it on the fly perhaps?
+resetGrid();
 }
